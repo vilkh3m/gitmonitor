@@ -1,18 +1,19 @@
-# Wybierz bazowy obraz z Pythonem 3.11
+# Use the base image with Python 3.11
 FROM python:3.11-slim
 
-# Instalacja Gita
+# Install Git
 RUN apt-get update && apt-get install -y git && apt-get clean
 
-# Ustaw katalog roboczy
+# Set the working directory
 WORKDIR /app
 
-# Instalacja FastAPI i Uvicorn
+# Install FastAPI and Uvicorn
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Skopiuj aplikację do obrazu
+# Copy the application into the image
 COPY . .
 
-# Ustawienie domyślnej komendy uruchomienia
+# Set the default command to run the application
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+
